@@ -50,6 +50,58 @@ ChatLogic::~ChatLogic()
     //// EOF STUDENT CODE
 }
 
+ChatLogic::ChatLogic(const ChatLogic& source)
+:_nodes(source._nodes),
+_edges(source._edges),
+_currentNode(source._currentNode),
+_chatBot(source._chatBot),
+_panelDialog(nullptr)
+{
+    std::cout<<"ChatLogic copy constructor\n";
+}
+
+ChatLogic& ChatLogic::operator=(const ChatLogic& source)
+{
+    std::cout<<"ChatLogic copy assignment operator\n";
+    if(this == &source)
+        return *this;
+
+    _nodes = source._nodes;
+    _edges = source._edges;
+    _currentNode = source._currentNode;
+    _chatBot = source._chatBot;
+    _panelDialog = nullptr;
+    
+    return *this;
+}
+
+ChatLogic::ChatLogic(ChatLogic&& source)
+:_nodes(std::move(source._nodes)),
+_edges(std::move(source._edges)),
+_currentNode(std::move(source._currentNode)),
+_chatBot(std::move(source._chatBot))
+{
+    std::cout<<"ChatLogic move constructor\n";
+    _panelDialog = source._panelDialog;
+    source._panelDialog = nullptr;
+}
+
+ChatLogic& ChatLogic::operator=(ChatLogic&& source)
+{
+    std::cout<<"ChatLogic move assignment operator\n";
+    if(this == &source)
+        return *this;
+    
+    _nodes = std::move(source._nodes);
+    _edges = std::move(source._edges);
+    _currentNode = std::move(source._currentNode);
+    _chatBot = std::move(source._chatBot);
+    _panelDialog = source._panelDialog;
+    source._panelDialog = nullptr;
+    
+    return *this;
+}
+
 template <typename T>
 void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T &element)
 {

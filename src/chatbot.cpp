@@ -19,6 +19,7 @@ ChatBot::ChatBot()
 
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
+:_imageFileName(filename)
 {
     std::cout << "ChatBot Constructor" << std::endl;
     
@@ -27,7 +28,7 @@ ChatBot::ChatBot(std::string filename)
     _rootNode = nullptr;
 
     // load image into heap memory
-    _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
+    _image = new wxBitmap(_imageFileName, wxBITMAP_TYPE_PNG);
 }
 
 ChatBot::~ChatBot()
@@ -44,6 +45,62 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+
+ChatBot::ChatBot(const ChatBot& source)
+: _currentNode(source._currentNode),
+    _rootNode(source._rootNode),
+    _chatLogic(source._chatLogic),
+    _imageFileName(source._imageFileName)
+{
+    std::cout<<"ChatBot copy constructor \n";
+    _image = new wxBitmap(_imageFileName, wxBITMAP_TYPE_PNG);
+}
+
+ChatBot& ChatBot::operator=(const ChatBot& source)
+{
+    std::cout<<"ChatBot copy assignment operator\n";
+    if(this == &source)
+        return *this;
+    
+    delete _image;
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _imageFileName = source._imageFileName;
+
+    _image = new wxBitmap(_imageFileName, wxBITMAP_TYPE_PNG);
+
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot&& source)
+: _currentNode(std::move(source._currentNode)),
+_rootNode(std::move(source._rootNode)),
+_chatLogic(std::move(source._chatLogic)),
+_imageFileName(std::move(source._imageFileName))
+{
+    std::cout<<"ChatBot move constructor \n";
+    _image = source._image;
+    source._image = NULL;
+}
+
+ChatBot& ChatBot::operator=(ChatBot&& source)
+{
+    std::cout<<"ChatBot move assignment operator\n";
+    if(this == &source)
+        return *this;
+
+    delete _image;
+    _currentNode = std::move(source._currentNode);
+    _rootNode = std::move(source._rootNode);
+    _chatLogic = std::move(source._chatLogic);
+    _imageFileName = std::move(source._imageFileName);
+    _image = source._image;
+    source._image = NULL;
+
+    return *this;
+}
 
 ////
 //// EOF STUDENT CODE

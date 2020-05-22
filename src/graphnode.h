@@ -49,6 +49,13 @@ public:
     //// STUDENT CODE
     ////
 
+    GraphNode(const GraphNode& source);
+    GraphNode& operator=(const GraphNode& source);
+
+    GraphNode(GraphNode&& source);
+    GraphNode& operator=(GraphNode&& source);
+
+
     void MoveChatbotHere(ChatBot *chatbot);
 
     ////
