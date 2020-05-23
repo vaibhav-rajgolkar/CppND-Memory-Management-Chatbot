@@ -41,11 +41,11 @@ public:
     ChatLogic();
     ~ChatLogic();
 
-    ChatLogic(const ChatLogic& source);
-    ChatLogic& operator=(const ChatLogic& source);
+    ChatLogic(const ChatLogic &source);
+    ChatLogic &operator=(const ChatLogic &source);
 
-    ChatLogic(ChatLogic&& source);
-    ChatLogic& operator=(ChatLogic&& source);
+    ChatLogic(ChatLogic &&source);
+    ChatLogic &operator=(ChatLogic &&source);
 
     // getter / setter
     void SetPanelDialogHandle(ChatBotPanelDialog *panelDialog);

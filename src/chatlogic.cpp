@@ -11,7 +11,6 @@
 #include "chatbot.h"
 #include "chatlogic.h"
 
-
 ChatLogic::ChatLogic()
 {
     //// STUDENT CODE
@@ -39,12 +38,12 @@ ChatLogic::~ChatLogic()
     //// EOF STUDENT CODE
 }
 
-ChatLogic::ChatLogic(const ChatLogic& source)
-: _currentNode(source._currentNode),
-_chatBot(source._chatBot),
-_panelDialog(nullptr)
+ChatLogic::ChatLogic(const ChatLogic &source)
+    : _currentNode(source._currentNode),
+      _chatBot(source._chatBot),
+      _panelDialog(nullptr)
 {
-    std::cout<<"ChatLogic copy constructor\n";
+    std::cout << "ChatLogic copy constructor\n";
     // for(const auto& node : source._nodes)
     // {
     //     _nodes.push_back(std::make_unique<GraphNode>(node));
@@ -58,10 +57,10 @@ _panelDialog(nullptr)
     // std::reverse(_edges.begin(), _edges.end());
 }
 
-ChatLogic& ChatLogic::operator=(const ChatLogic& source)
+ChatLogic &ChatLogic::operator=(const ChatLogic &source)
 {
-    std::cout<<"ChatLogic copy assignment operator\n";
-    if(this == &source)
+    std::cout << "ChatLogic copy assignment operator\n";
+    if (this == &source)
         return *this;
 
     // for(const auto& node : source._nodes)
@@ -78,17 +77,17 @@ ChatLogic& ChatLogic::operator=(const ChatLogic& source)
     _currentNode = source._currentNode;
     _chatBot = source._chatBot;
     _panelDialog = nullptr;
-    
+
     return *this;
 }
 
-ChatLogic::ChatLogic(ChatLogic&& source)
-:_nodes(std::move(source._nodes)),
-_edges(std::move(source._edges))
+ChatLogic::ChatLogic(ChatLogic &&source)
+    : _nodes(std::move(source._nodes)),
+      _edges(std::move(source._edges))
 //_currentNode(std::move(source._currentNode))
 //_chatBot(std::move(source._chatBot))
 {
-    std::cout<<"ChatLogic move constructor\n";
+    std::cout << "ChatLogic move constructor\n";
     _currentNode = source._currentNode;
     _chatBot = source._chatBot;
     _panelDialog = source._panelDialog;
@@ -97,19 +96,19 @@ _edges(std::move(source._edges))
     source._panelDialog = nullptr;
 }
 
-ChatLogic& ChatLogic::operator=(ChatLogic&& source)
+ChatLogic &ChatLogic::operator=(ChatLogic &&source)
 {
-    std::cout<<"ChatLogic move assignment operator\n";
-    if(this == &source)
+    std::cout << "ChatLogic move assignment operator\n";
+    if (this == &source)
         return *this;
-    
+
     _nodes = std::move(source._nodes);
     _edges = std::move(source._edges);
     _currentNode = std::move(source._currentNode);
     _chatBot = std::move(source._chatBot);
     _panelDialog = source._panelDialog;
     source._panelDialog = nullptr;
-    
+
     return *this;
 }
 
@@ -282,7 +281,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     chatBot.SetRootNode(rootNode);
 
     rootNode->MoveChatbotHere(std::move(chatBot));
-    
+
     ////
     //// EOF STUDENT CODE
 }
