@@ -75,28 +75,42 @@ ChatBot& ChatBot::operator=(const ChatBot& source)
 }
 
 ChatBot::ChatBot(ChatBot&& source)
-: _currentNode(std::move(source._currentNode)),
-_rootNode(std::move(source._rootNode)),
-_chatLogic(std::move(source._chatLogic)),
-_imageFileName(std::move(source._imageFileName))
+: _imageFileName(std::move(source._imageFileName))
 {
     std::cout<<"ChatBot move constructor \n";
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);    
     _image = source._image;
+
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+    source._imageFileName = {};
     source._image = NULL;
 }
 
 ChatBot& ChatBot::operator=(ChatBot&& source)
 {
     std::cout<<"ChatBot move assignment operator\n";
+
     if(this == &source)
         return *this;
 
     delete _image;
-    _currentNode = std::move(source._currentNode);
-    _rootNode = std::move(source._rootNode);
-    _chatLogic = std::move(source._chatLogic);
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _imageFileName = std::move(source._imageFileName);
+
     _image = source._image;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+    source._imageFileName = {};
     source._image = NULL;
 
     return *this;
